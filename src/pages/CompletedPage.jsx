@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import MasterLayout from "../components/masterLayout/MasterLayout";
 
 const CompletedPage = () => {
   return (
-    <div>CompletedPage</div>
-  )
-}
+    <>
+      <MasterLayout>
+        <h1>Completed Page</h1>
+      </MasterLayout>
+    </>
+  );
+};
 
-export default CompletedPage
+export default CompletedPage;

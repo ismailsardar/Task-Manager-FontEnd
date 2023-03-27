@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import MasterLayout from "../components/masterLayout/MasterLayout";
 
 const NewTaskPage = () => {
   return (
-    <div>NewTaskPage</div>
-  )
-}
+    <>
+      <MasterLayout>
+        <h1>New Task Page</h1>
+      </MasterLayout>
+    </>
+  );
+};
 
-export default NewTaskPage
+export default NewTaskPage;

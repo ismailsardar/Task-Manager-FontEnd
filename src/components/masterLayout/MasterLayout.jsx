@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 import user from "../../assets/img/ismile.png";
 import logo from "../../assets/img/logo.svg";
 
-const MasterLayout = () => {
+const MasterLayout = (props) => {
   let contentRef,
     sideNavRef = useRef();
   return (
@@ -112,6 +112,15 @@ const MasterLayout = () => {
           <AiOutlineCheckCircle className="side-bar-item-icon" />
           <span className="side-bar-item-caption">Completed</span>
         </NavLink>
+      </div>
+
+      <div
+        ref={(div) => {
+          contentRef = div;
+        }}
+        className="content"
+      >
+        {props.children}
       </div>
     </>
   );
