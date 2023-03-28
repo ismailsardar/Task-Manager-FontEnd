@@ -1,4 +1,5 @@
-import React,{Suspense} from "react";
+import React, { lazy, Suspense } from "react";
+// const Canceled = lazy(() => import("../components/));
 
 const ForgetpassPage = () => {
   return (

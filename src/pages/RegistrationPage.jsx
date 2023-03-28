@@ -1,10 +1,13 @@
-import React, { Suspense } from "react";
+import React, { lazy, Suspense } from "react";
+const Registration = lazy(() =>
+  import("../components/Registration/Registration")
+);
 
 const RegistrationPage = () => {
   return (
     <>
       <Suspense fallback={<LazyLoader />}>
-        <h2>RegistrationPage</h2>
+        <Registration />
       </Suspense>
     </>
   );

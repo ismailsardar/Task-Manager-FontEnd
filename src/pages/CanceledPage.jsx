@@ -1,10 +1,11 @@
-import React,{Suspense} from "react";
+import React, { lazy, Suspense } from "react";
+const Canceled = lazy(() => import("../components/Canceled/Canceled"));
 
 const CanceledPage = () => {
   return (
     <>
       <Suspense fallback={<LazyLoader />}>
-        <h1>CanceledPage Page</h1>
+        <Canceled />
       </Suspense>
     </>
   );

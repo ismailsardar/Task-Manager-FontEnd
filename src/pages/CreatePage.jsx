@@ -1,12 +1,13 @@
-import React,{Suspense} from "react";
+import React, { lazy, Suspense } from "react";
 import MasterLayout from "../components/masterLayout/MasterLayout";
+const Create = lazy(() => import("../components/Create/Create"));
 
 const CreatePage = () => {
   return (
     <>
       <MasterLayout>
         <Suspense fallback={<LazyLoader />}>
-          <h1>Create Page</h1>
+          <Create />
         </Suspense>
       </MasterLayout>
     </>

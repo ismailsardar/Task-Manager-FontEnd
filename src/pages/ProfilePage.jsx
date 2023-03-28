@@ -1,10 +1,11 @@
-import React,{Suspense} from "react";
+import React, { lazy, Suspense } from "react";
+const Profile = lazy(() => import("../components/Profile/Profile"));
 
 const ProfilePage = () => {
   return (
     <>
       <Suspense fallback={<LazyLoader />}>
-        <h2>profile page</h2>
+        <Profile />
       </Suspense>
     </>
   );

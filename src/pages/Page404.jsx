@@ -1,10 +1,11 @@
-import React,{Suspense} from "react";
+import React, { lazy, Suspense } from "react";
+const NotFound = lazy(() => import("../components/NotFound/NotFound"));
 
 const Page404 = () => {
   return (
     <>
       <Suspense fallback={<LazyLoader />}>
-        <h1>page404</h1>
+        <NotFound />
       </Suspense>
     </>
   );
