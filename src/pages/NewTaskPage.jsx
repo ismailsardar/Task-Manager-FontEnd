@@ -1,11 +1,13 @@
-import React from "react";
+import React,{Suspense} from "react";
 import MasterLayout from "../components/masterLayout/MasterLayout";
 
 const NewTaskPage = () => {
   return (
     <>
       <MasterLayout>
-        <h1>New Task Page</h1>
+        <Suspense fallback={<LazyLoader />}>
+          <h1>New Task Page</h1>
+        </Suspense>
       </MasterLayout>
     </>
   );

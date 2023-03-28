@@ -1,9 +1,13 @@
-import React from 'react'
+import React,{Suspense} from "react";
 
 const ProfilePage = () => {
   return (
-    <div>ProfilePage</div>
-  )
-}
+    <>
+      <Suspense fallback={<LazyLoader />}>
+        <h2>profile page</h2>
+      </Suspense>
+    </>
+  );
+};
 
-export default ProfilePage
+export default ProfilePage;

@@ -1,9 +1,13 @@
-import React from 'react'
+import React,{Suspense} from "react";
 
 const Page404 = () => {
   return (
-    <div>Page404</div>
-  )
-}
+    <>
+      <Suspense fallback={<LazyLoader />}>
+        <h1>page404</h1>
+      </Suspense>
+    </>
+  );
+};
 
-export default Page404
+export default Page404;

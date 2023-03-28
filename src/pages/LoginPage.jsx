@@ -1,9 +1,11 @@
-import React from 'react'
+import React,{Suspense} from "react";
 
 const LoginPage = () => {
   return (
-    <div>LoginPage</div>
-  )
-}
+    <>
+      <Suspense fallback={<LazyLoader />}>LoginPage</Suspense>
+    </>
+  );
+};
 
-export default LoginPage
+export default LoginPage;

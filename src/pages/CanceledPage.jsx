@@ -1,9 +1,13 @@
-import React from 'react'
+import React,{Suspense} from "react";
 
 const CanceledPage = () => {
   return (
-    <div>CanceledPage</div>
-  )
-}
+    <>
+      <Suspense fallback={<LazyLoader />}>
+        <h1>CanceledPage Page</h1>
+      </Suspense>
+    </>
+  );
+};
 
-export default CanceledPage
+export default CanceledPage;

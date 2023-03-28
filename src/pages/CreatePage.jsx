@@ -1,14 +1,16 @@
-import React from 'react'
-import MasterLayout from '../components/masterLayout/MasterLayout'
+import React,{Suspense} from "react";
+import MasterLayout from "../components/masterLayout/MasterLayout";
 
 const CreatePage = () => {
   return (
     <>
       <MasterLayout>
-        <h1>Create Page</h1>
+        <Suspense fallback={<LazyLoader />}>
+          <h1>Create Page</h1>
+        </Suspense>
       </MasterLayout>
     </>
-  )
-}
+  );
+};
 
-export default CreatePage
+export default CreatePage;

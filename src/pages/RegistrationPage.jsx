@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { Suspense } from "react";
 
 const RegistrationPage = () => {
   return (
-    <div>RegistrationPage</div>
-  )
-}
+    <>
+      <Suspense fallback={<LazyLoader />}>
+        <h2>RegistrationPage</h2>
+      </Suspense>
+    </>
+  );
+};
 
-export default RegistrationPage
+export default RegistrationPage;
