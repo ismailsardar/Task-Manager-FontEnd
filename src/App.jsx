@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import FullscreenLoader from "./components/masterLayout/FullscreenLoader";
 import CanceledPage from "./pages/CanceledPage";
 import CompletedPage from "./pages/CompletedPage";
 import CreatePage from "./pages/CreatePage";
@@ -30,6 +31,7 @@ function App() {
           <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
+      <FullscreenLoader/>
     </>
   );
 }
