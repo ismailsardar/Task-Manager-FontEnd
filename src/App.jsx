@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import FullscreenLoader from "./components/masterLayout/FullscreenLoader";
+import { getToken } from "./helper/SessionHelper";
 import CanceledPage from "./pages/CanceledPage";
 import CompletedPage from "./pages/CompletedPage";
 import CreatePage from "./pages/CreatePage";
@@ -11,10 +12,43 @@ import Page404 from "./pages/Page404";
 import ProfilePage from "./pages/ProfilePage";
 import ProgressPage from "./pages/ProgressPage";
 import RegistrationPage from "./pages/RegistrationPage";
-import {Toaster} from 'react-hot-toast';
 
 function App() {
-  const [count, setCount] = useState(0);
+  if (getToken()) {
+    return (
+      <>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/create" element={<CreatePage />} />
+            <Route path="/all" element={<NewTaskPage />} />
+            <Route path="/progress" element={<ProgressPage />} />
+            <Route path="/completed" element={<CompletedPage />} />
+            <Route path="/canceled" element={<CanceledPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="*" element={<Page404 />} />
+          </Routes>
+        </BrowserRouter>
+        <FullscreenLoader />
+        <Toaster />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Navigate to="/login" replace />} />
+            <Route path="/registration" element={<RegistrationPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="*" element={<Page404 />} />
+          </Routes>
+        </BrowserRouter>
+        <FullscreenLoader />
+        <Toaster />
+      </>
+    );
+  }
 
   return (
     <>
@@ -32,8 +66,8 @@ function App() {
           <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
-      <FullscreenLoader/>
-      <Toaster/>
+      <FullscreenLoader />
+      <Toaster />
     </>
   );
 }
