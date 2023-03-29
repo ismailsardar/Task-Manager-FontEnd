@@ -1,5 +1,5 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Registration = () => {
   return (
@@ -15,28 +15,50 @@ const Registration = () => {
                   <div className="row m-0 p-0">
                     <div className="col-md-4 p-2">
                       <label>Email Address</label>
-                      <input type="email" placeholder='Email' className='form-control animated fadeInUp' />
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        className="form-control animated fadeInUp"
+                      />
                     </div>
                     <div className="col-md-4 p-2">
                       <label>First Name</label>
-                      <input type="text" placeholder='First Name' className='form-control animated fadeInUp' />
+                      <input
+                        type="text"
+                        placeholder="First Name"
+                        className="form-control animated fadeInUp"
+                      />
                     </div>
                     <div className="col-md-4 p-2">
                       <label>Last Name</label>
-                      <input type="text" placeholder='Last Name' className='form-control animated fadeInUp' />
+                      <input
+                        type="text"
+                        placeholder="Last Name"
+                        className="form-control animated fadeInUp"
+                      />
                     </div>
                     <div className="col-md-4 p-2">
                       <label>Mobile Number</label>
-                      <input type="text" placeholder='Mobile Number' className='form-control animated fadeInUp' />
+                      <input
+                        type="mobile"
+                        placeholder="Mobile Number"
+                        className="form-control animated fadeInUp"
+                      />
                     </div>
                     <div className="col-md-4 p-2">
                       <label>Password</label>
-                      <input type="password" placeholder='Password' className='form-control animated fadeInUp' />
+                      <input
+                        type="password"
+                        placeholder="Password"
+                        className="form-control animated fadeInUp"
+                      />
                     </div>
                   </div>
                   <div className="row mt-2 p-0">
                     <div className="col-md-4 p-2">
-                      <button className='btn btn-primary mt-3 w-100 float-end animated fadeInUp' >Complete</button>
+                      <button className="btn btn-primary mt-3 w-100 float-end animated fadeInUp">
+                        Complete
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -64,7 +86,7 @@ const Registration = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Registration
+export default Registration;
