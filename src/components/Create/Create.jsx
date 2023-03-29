@@ -6,7 +6,7 @@ const Create = () => {
     <>
       <Container fluid={true} className="content-body">
         <Row className="d-flex justify-content-center">
-          <div className="col-12 col-sm-12 col-lg-8 col-md-8 p-2">
+          <div className="col-12 col-lg-8 col-sm-12 col-md-8 p-2">
             <div className="card">
               <div className="card-body">
                 <h4>Create New</h4>
