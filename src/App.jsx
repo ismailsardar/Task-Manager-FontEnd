@@ -11,6 +11,7 @@ import Page404 from "./pages/Page404";
 import ProfilePage from "./pages/ProfilePage";
 import ProgressPage from "./pages/ProgressPage";
 import RegistrationPage from "./pages/RegistrationPage";
+import {Toaster} from 'react-hot-toast';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -32,6 +33,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <FullscreenLoader/>
+      <Toaster/>
     </>
   );
 }

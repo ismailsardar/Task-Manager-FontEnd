@@ -1,5 +1,11 @@
-import React,{useRef} from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+import {
+  ErrorToast,
+  IsEmail,
+  IsEmpty,
+  IsMobile,
+} from "../../helper/FormHelper";
 
 const Registration = () => {
   let emailRef,
@@ -16,8 +22,23 @@ const Registration = () => {
     let password = passwordRef.value;
     let photo = "demo";
 
-    debugger;
-    console.log(email + firstName + lastName + mobile + password);
+    // debugger;
+    // console.log(email + firstName + lastName + mobile + password);
+
+    // form validation
+    if (IsEmail(email)) {
+      ErrorToast("Valid Email Address Required !");
+    } else if (IsEmpty(firstName)) {
+      ErrorToast("First Name is Required !");
+    } else if (IsEmpty(lastName)) {
+      ErrorToast("Last Name is Required !");
+    } else if (!IsMobile(mobile)) {
+      ErrorToast("Valid Mobile Required !");
+    } else if (IsEmpty(password)) {
+      ErrorToast("password Required !");
+    } else {
+      alert("success");
+    }
   };
 
   return (
