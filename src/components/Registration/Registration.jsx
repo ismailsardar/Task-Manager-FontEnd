@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RegistrationRequest } from "../../APIRequest/ApiRequest";
 import {
   ErrorToast,
   IsEmail,
@@ -8,6 +9,8 @@ import {
 } from "../../helper/FormHelper";
 
 const Registration = () => {
+  let navigate = useNavigate();
+
   let emailRef,
     firstNameRef,
     lastNameRef,
@@ -37,7 +40,19 @@ const Registration = () => {
     } else if (IsEmpty(password)) {
       ErrorToast("password Required !");
     } else {
-      alert("success");
+      // alert("success");
+      RegistrationRequest(
+        email,
+        firstName,
+        lastName,
+        mobile,
+        password,
+        photo
+      ).then((result) => {
+        if (result === true) {
+          navigate("/login");
+        }
+      });
     }
   };
 
