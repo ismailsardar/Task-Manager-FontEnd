@@ -27,7 +27,7 @@ const Login = () => {
                   Next
                 </button>
                 <hr />
-                <div className="float-end mt-3">
+                <div className="text-center mt-3">
                   <span>
                     <Link
                       className="text-center ms-3 h6 animated fadeInUp"
