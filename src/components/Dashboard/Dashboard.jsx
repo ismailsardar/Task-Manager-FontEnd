@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { SummaryRequest } from "../../APIRequest/ApiRequest";
 import { useSelector } from "react-redux";
+import { SummaryRequest } from "../../APIRequest/ApiRequest";
 
 const Dashboard = () => {
   useEffect(() => {
@@ -14,7 +14,10 @@ const Dashboard = () => {
       <div className="container">
         <div className="row p-0 m-0">
           {summaryList.map((item, i) => (
-            <div key={i.toString()} className="col-12 col-lg-3 col-md-3 col-sm-6 p-2">
+            <div
+              key={i.toString()}
+              className="col-12 col-lg-3 col-md-3 col-sm-6 p-2"
+            >
               <div className="card h-100">
                 <div className="card-body">
                   <h5 className="animated fadeInUp">{item._id}</h5>
