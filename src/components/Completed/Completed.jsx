@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/all";
-import { TaskListByStatus } from "../../APIRequest/ApiRequest";
 import { useSelector } from "react-redux";
+import { TaskListByStatus } from "../../APIRequest/ApiRequest";
 import { DeleteToDo } from "../../helper/DeleteAlert";
 
 const Completed = () => {
@@ -54,7 +54,7 @@ const Completed = () => {
                       <AiOutlineEdit />
                     </a>
                     <a
-                      onClick={()=>DeleteToDo(item._id)}
+                      onClick={() => DeleteToDo(item._id)}
                       className="icon-nav text-danger mx-1"
                     >
                       <AiOutlineDelete />

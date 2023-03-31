@@ -2,6 +2,7 @@ import axios from "axios";
 import { ErrorToast, SuccessToast } from "../helper/FormHelper";
 import { getToken, setToken, setUserDetails } from "../helper/SessionHelper";
 import { HideLoader, ShowLoader } from "../redux/slice/settingsSlice";
+import { SetSummary } from "../redux/slice/summarySlice";
 import {
   CanceledTask,
   CompletedTask,
@@ -9,7 +10,6 @@ import {
   SetNewTask,
 } from "../redux/slice/taskSlice";
 import store from "../redux/store/store";
-import { SetSummary } from "../redux/slice/summarySlice";
 
 const BaseURL = "https://task-manager-ismile.cyclic.app/api/v1";
 const AxiosHeader = { headers: { token: getToken() } };
@@ -152,9 +152,33 @@ export function SummaryRequest() {
     .then((res) => {
       store.dispatch(HideLoader());
       if (res.status === 200) {
-        store.dispatch(SetSummary(res.data['data']))
+        store.dispatch(SetSummary(res.data["data"]));
       } else {
         ErrorToast("Something Went Wrong");
+      }
+    })
+    .catch((error) => {
+      // console.log(error.massage)
+      ErrorToast("Something Went Wrong=");
+      store.dispatch(HideLoader());
+      return false;
+    });
+}
+
+// Delete Request
+export function DeleteRequest(id) {
+  store.dispatch(ShowLoader());
+  const URL = `${BaseURL}/deleteTask/${id}`;
+  return axios
+    .post(URL, AxiosHeader)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        SuccessToast("Delete Success!");
+        return true;
+      } else {
+        ErrorToast("Something Went Wrong!");
+        return false;
       }
     })
     .catch((error) => {
