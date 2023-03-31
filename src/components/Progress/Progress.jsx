@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/all";
+import { TaskListByStatus } from '../../APIRequest/ApiRequest';
 
 const Progress = () => {
+
+  useEffect(() => {
+    TaskListByStatus("Progress");
+  }, []);
+
   return (
     <>
       <Container fluid={true} className="content-body">

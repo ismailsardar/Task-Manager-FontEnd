@@ -2,6 +2,12 @@ import axios from "axios";
 import { ErrorToast, SuccessToast } from "../helper/FormHelper";
 import { getToken, setToken, setUserDetails } from "../helper/SessionHelper";
 import { HideLoader, ShowLoader } from "../redux/slice/settingsSlice";
+import {
+  CanceledTask,
+  CompletedTask,
+  ProgressTask,
+  SetNewTask,
+} from "../redux/slice/taskSlice";
 import store from "../redux/store/store";
 
 const BaseURL = "https://task-manager-ismile.cyclic.app/api/v1";
@@ -85,7 +91,7 @@ export function LoginRequest(email, password) {
 export function NewTaskRequest(title, description) {
   store.dispatch(ShowLoader());
   const URL = `${BaseURL}/createTask`;
-  let reqBody = { "title":title, "description":description, status: "New" };
+  let reqBody = { title: title, description: description, status: "New" };
   return axios
     .post(URL, reqBody, AxiosHeader)
     .then((res) => {
@@ -99,7 +105,36 @@ export function NewTaskRequest(title, description) {
       }
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
+      ErrorToast("Something Went Wrong=");
+      store.dispatch(HideLoader());
+      return false;
+    });
+}
+// Task List By Status
+export function TaskListByStatus(status) {
+  store.dispatch(ShowLoader());
+  const URL = `${BaseURL}/listTaskByStatus/${status}`;
+  axios
+    .get(URL, AxiosHeader)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        if (status === "New") {
+          store.dispatch(SetNewTask(res.data["data"]));
+        } else if (status === "Completed") {
+          store.dispatch(CompletedTask(res.data["data"]));
+        } else if (status === "Canceled") {
+          store.dispatch(CanceledTask(res.data["data"]));
+        } else if (status === "Progress") {
+          store.dispatch(ProgressTask(res.data["data"]));
+        }
+      } else {
+        ErrorToast("Something Went Wrong");
+      }
+    })
+    .catch((error) => {
+      console.log(error.massage)
       ErrorToast("Something Went Wrong=");
       store.dispatch(HideLoader());
       return false;

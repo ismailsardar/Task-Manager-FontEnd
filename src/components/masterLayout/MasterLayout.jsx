@@ -9,12 +9,14 @@ import {
 } from "react-icons/ai";
 import { RiDashboardLine } from "react-icons/all";
 import { BsHourglass, BsListNested } from "react-icons/bs";
+import { MdOutlineCancelPresentation } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import user from "../../assets/img/ismile.png";
 import logo from "../../assets/img/logo.svg";
 
 const MasterLayout = (props) => {
-  let contentRef,sideNavRef = useRef();
+  let contentRef,
+    sideNavRef = useRef();
 
   const MenuBarClickHandler = () => {
     let sideNav = sideNavRef;
@@ -128,6 +130,18 @@ const MasterLayout = (props) => {
         >
           <AiOutlineCheckCircle className="side-bar-item-icon" />
           <span className="side-bar-item-caption">Completed</span>
+        </NavLink>
+
+        <NavLink
+          className={(navData) =>
+            navData.isActive
+              ? "side-bar-item-active side-bar-item mt-2"
+              : "side-bar-item mt-2"
+          }
+          to="/canceled"
+        >
+          <MdOutlineCancelPresentation className="side-bar-item-icon" />
+          <span className="side-bar-item-caption">Canceled</span>
         </NavLink>
       </div>
 

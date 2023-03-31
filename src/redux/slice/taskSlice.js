@@ -12,7 +12,7 @@ const taskSlice = createSlice({
         SetNewTask:(state,action)=>{
             state.New = action.payload;
         },
-        CreateTask:(state,action)=>{
+        CanceledTask:(state,action)=>{
             state.Create = action.payload;
         },
         CompletedTask:(state,action)=>{
@@ -24,6 +24,6 @@ const taskSlice = createSlice({
     }
 });
 
-export const {SetNewTask,CreateTask,CompletedTask,ProgressTask} = taskSlice.actions;
+export const {SetNewTask,CanceledTask,CompletedTask,ProgressTask} = taskSlice.actions;
 
 export default taskSlice.reducer;
