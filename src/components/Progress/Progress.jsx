@@ -3,12 +3,15 @@ import { Container } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/all";
 import { TaskListByStatus } from '../../APIRequest/ApiRequest';
+import { useSelector } from 'react-redux';
 
 const Progress = () => {
 
   useEffect(() => {
     TaskListByStatus("Progress");
   }, []);
+
+  let ProgressList = useSelector((state)=> state.task.Progress);
 
   return (
     <>

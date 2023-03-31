@@ -3,13 +3,15 @@ import { Container } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/all";
 import { TaskListByStatus } from '../../APIRequest/ApiRequest';
+import { useSelector } from 'react-redux';
 
 const NewTask = () => {
 
   useEffect(() => {
     TaskListByStatus("New");
-  }, [])
+  }, []);
   
+  let NewList = useSelector((state)=> state.task.New);
 
   return (
     <>

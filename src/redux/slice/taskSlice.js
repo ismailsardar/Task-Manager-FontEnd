@@ -4,8 +4,8 @@ const taskSlice = createSlice({
     name:"task",
     initialState:{
         New:[],
-        Create:[],
         Completed:[],
+        Canceled:[],
         Progress:[],
     },
     reducers:{
@@ -13,7 +13,7 @@ const taskSlice = createSlice({
             state.New = action.payload;
         },
         CanceledTask:(state,action)=>{
-            state.Create = action.payload;
+            state.Canceled = action.payload;
         },
         CompletedTask:(state,action)=>{
             state.Completed = action.payload;
