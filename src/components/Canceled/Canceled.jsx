@@ -4,6 +4,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/all";
 import { useSelector } from "react-redux";
 import { TaskListByStatus } from "../../APIRequest/ApiRequest";
+import { DeleteToDo } from "../../helper/DeleteAlert";
 
 const Canceled = () => {
   useEffect(() => {
@@ -53,7 +54,7 @@ const Canceled = () => {
                       <AiOutlineEdit />
                     </a>
                     <a
-                      // onClick={DeleteItem.bind(this, item._id)}
+                      onClick={() => DeleteToDo(item._id)}
                       className="icon-nav text-danger mx-1"
                     >
                       <AiOutlineDelete />
