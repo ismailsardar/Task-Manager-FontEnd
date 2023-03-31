@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/all";
 import { TaskListByStatus } from "../../APIRequest/ApiRequest";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const Completed = () => {
-
   useEffect(() => {
     TaskListByStatus("Completed");
   }, []);
 
-  let CompletedList = useSelector((state)=> state.task.Completed);
+  let CompletedList = useSelector((state) => state.task.Completed);
 
   return (
     <>
@@ -32,39 +31,39 @@ const Completed = () => {
           </div>
         </div>
         <div className="row p-0 m-0">
-          {/* {CompletedList.map((item, i) => ( */}
-          <div
-            // key={i.toString()}
-            className="col-12 col-lg-4 col-sm-6 col-md-4  p-2"
-          >
-            <div className="card h-100">
-              <div className="card-body">
-                <h6 className="animated fadeInUp">Title</h6>
-                <p className="animated fadeInUp">Description</p>
-                <p className="m-0 animated fadeInUp p-0">
-                  <AiOutlineCalendar /> 11/12/2023
-                  <a
-                    // onClick={StatusChangeItem.bind(
-                    //   this,
-                    //   item._id,
-                    //   item.status
-                    // )}
-                    className="icon-nav text-primary mx-1"
-                  >
-                    <AiOutlineEdit />
-                  </a>
-                  <a
-                    // onClick={DeleteItem.bind(this, item._id)}
-                    className="icon-nav text-danger mx-1"
-                  >
-                    <AiOutlineDelete />
-                  </a>
-                  <a className="badge float-end bg-success">completed</a>
-                </p>
+          {CompletedList.map((item, i) => (
+            <div
+              key={i.toString()}
+              className="col-12 col-lg-4 col-sm-6 col-md-4  p-2"
+            >
+              <div className="card h-100">
+                <div className="card-body">
+                  <h6 className="animated fadeInUp">{item.title}</h6>
+                  <p className="animated fadeInUp">{item.description}</p>
+                  <p className="m-0 animated fadeInUp p-0">
+                    <AiOutlineCalendar /> {item.createdDate}
+                    <a
+                      // onClick={StatusChangeItem.bind(
+                      //   this,
+                      //   item._id,
+                      //   item.status
+                      // )}
+                      className="icon-nav text-primary mx-1"
+                    >
+                      <AiOutlineEdit />
+                    </a>
+                    <a
+                      // onClick={DeleteItem.bind(this, item._id)}
+                      className="icon-nav text-danger mx-1"
+                    >
+                      <AiOutlineDelete />
+                    </a>
+                    <a className="badge float-end bg-success">completed</a>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          {/* ))} */}
+          ))}
         </div>
       </Container>
     </>
