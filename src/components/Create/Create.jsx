@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Container, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { NewTaskRequest } from "../../APIRequest/ApiRequest";
+import { ErrorToast, IsEmpty } from "../../helper/FormHelper";
 
 const Create = () => {
+  let titleRef,desRef = useRef();
+  let navigate = useNavigate();
+
+  const CreateTask = () => {
+    let title = titleRef.value;
+    let description = desRef.value;
+    if (IsEmpty(title)) {
+      ErrorToast("Title Required!");
+    } else if (IsEmpty(description)) {
+      ErrorToast("Description Required!");
+    } else {
+      NewTaskRequest(title, description).then((result) => {
+        if (result === true) {
+          navigate("/all");
+        }
+      });
+    }
+  };
+
   return (
     <>
       <Container fluid={true} className="content-body">
@@ -12,17 +34,24 @@ const Create = () => {
                 <h4>Create New</h4>
                 <br />
                 <input
+                  ref={(input) => (titleRef = input)}
                   type="text"
                   placeholder="Task Name"
                   className="form-control animated fadeInUp"
                 />
                 <br />
                 <textarea
+                  ref={(input) => (desRef = input)}
                   placeholder="Task Descriptions..."
                   className="form-control animated fadeInUp"
                 />
                 <br />
-                <button className="btn btn-primary float-end">Create</button>
+                <button
+                  onClick={CreateTask}
+                  className="btn btn-primary float-end"
+                >
+                  Create
+                </button>
               </div>
             </div>
           </div>

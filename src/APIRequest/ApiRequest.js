@@ -1,10 +1,11 @@
 import axios from "axios";
 import { ErrorToast, SuccessToast } from "../helper/FormHelper";
-import { setToken, setUserDetails } from "../helper/SessionHelper";
+import { getToken, setToken, setUserDetails } from "../helper/SessionHelper";
 import { HideLoader, ShowLoader } from "../redux/slice/settingsSlice";
 import store from "../redux/store/store";
 
 const BaseURL = "https://task-manager-ismile.cyclic.app/api/v1";
+const AxiosHeader = { headers: { token: getToken() } };
 
 //Register
 export function RegistrationRequest(
@@ -75,6 +76,31 @@ export function LoginRequest(email, password) {
     })
     .catch((error) => {
       ErrorToast("Something Went Wrong");
+      store.dispatch(HideLoader());
+      return false;
+    });
+}
+
+// New task
+export function NewTaskRequest(title, description) {
+  store.dispatch(ShowLoader());
+  const URL = `${BaseURL}/createTask`;
+  let reqBody = { "title":title, "description":description, status: "New" };
+  return axios
+    .post(URL, reqBody, AxiosHeader)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        SuccessToast("New Task Created");
+        return true;
+      } else {
+        ErrorToast("Something Went Wrong");
+        return false;
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+      ErrorToast("Something Went Wrong=");
       store.dispatch(HideLoader());
       return false;
     });
