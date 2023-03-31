@@ -9,6 +9,7 @@ import {
   SetNewTask,
 } from "../redux/slice/taskSlice";
 import store from "../redux/store/store";
+import { SetSummary } from "../redux/slice/summarySlice";
 
 const BaseURL = "https://task-manager-ismile.cyclic.app/api/v1";
 const AxiosHeader = { headers: { token: getToken() } };
@@ -111,6 +112,7 @@ export function NewTaskRequest(title, description) {
       return false;
     });
 }
+
 // Task List By Status
 export function TaskListByStatus(status) {
   store.dispatch(ShowLoader());
@@ -134,7 +136,29 @@ export function TaskListByStatus(status) {
       }
     })
     .catch((error) => {
-      console.log(error.massage)
+      // console.log(error.massage)
+      ErrorToast("Something Went Wrong=");
+      store.dispatch(HideLoader());
+      return false;
+    });
+}
+
+// Summary Request
+export function SummaryRequest() {
+  store.dispatch(ShowLoader());
+  const URL = `${BaseURL}/taskStatusCount`;
+  axios
+    .get(URL, AxiosHeader)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        store.dispatch(SetSummary(res.data['data']))
+      } else {
+        ErrorToast("Something Went Wrong");
+      }
+    })
+    .catch((error) => {
+      // console.log(error.massage)
       ErrorToast("Something Went Wrong=");
       store.dispatch(HideLoader());
       return false;
