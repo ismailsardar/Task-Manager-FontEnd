@@ -13,13 +13,13 @@ const NewTask = () => {
 
   let NewList = useSelector((state) => state.task.New);
 
-  const DeleteItem = (id)=>{
-    DeleteToDo(id).then((result)=>{
-      if (result===true) {
+  const DeleteItem = (id) => {
+    DeleteToDo(id).then((result) => {
+      if (result === true) {
         TaskListByStatus("New");
       }
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -62,7 +62,7 @@ const NewTask = () => {
                       <AiOutlineEdit />
                     </a>
                     <a
-                      onClick={()=>DeleteItem(item._id)}
+                      onClick={() => DeleteItem(item._id)}
                       className="icon-nav text-danger mx-1"
                     >
                       <AiOutlineDelete />
