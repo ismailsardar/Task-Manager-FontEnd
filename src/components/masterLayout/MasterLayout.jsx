@@ -13,6 +13,7 @@ import { MdOutlineCancelPresentation } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import user from "../../assets/img/ismile.png";
 import logo from "../../assets/img/logo.svg";
+import { removeSession } from "../../helper/SessionHelper";
 
 const MasterLayout = (props) => {
   let contentRef,
@@ -33,6 +34,10 @@ const MasterLayout = (props) => {
       content.classList.remove("content-expand");
       content.classList.add("content");
     }
+  };
+
+  const logOut = () => {
+    removeSession();
   };
 
   return (
@@ -59,7 +64,7 @@ const MasterLayout = (props) => {
                   <AiOutlineUser className="side-bar-item-icon" />
                   <span className="side-bar-item-caption">Profile</span>
                 </NavLink>
-                <a /*onClick={}*/ className="side-bar-item">
+                <a onClick={logOut} className="side-bar-item">
                   <AiOutlineLogout className="side-bar-item-icon" />
                   <span className="side-bar-item-caption">Logout</span>
                 </a>
