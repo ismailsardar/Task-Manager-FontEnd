@@ -195,3 +195,31 @@ export function DeleteRequest(id) {
       return false;
     });
 }
+
+//Update Status Request
+export function UpdateStatusRequest(id,status) {
+  store.dispatch(ShowLoader());
+  const URL = `${BaseURL}/updateStatus/${id}/${status}`;
+  // debugger
+  return axios
+    .post(URL, null, axiosConfig)
+    .then((res) => {
+      // debugger
+      store.dispatch(HideLoader());
+
+      if (res.status === 200) {
+        SuccessToast("Update status Success!");
+        return true;
+      } else {
+        ErrorToast("Update status Filed!");
+        return false;
+      }
+    })
+    .catch((error) => {
+      // debugger
+      console.log(error.message);
+      ErrorToast("Something Went Wrong");
+      store.dispatch(HideLoader());
+      return false;
+    });
+}
