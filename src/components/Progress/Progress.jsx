@@ -5,6 +5,7 @@ import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/all";
 import { useSelector } from "react-redux";
 import { TaskListByStatus } from "../../APIRequest/ApiRequest";
 import { DeleteToDo } from "../../helper/DeleteAlert";
+import { UpdateToDoStatus } from "../../helper/UpdateAlert";
 
 const Progress = () => {
   useEffect(() => {
@@ -15,6 +16,14 @@ const Progress = () => {
 
   const DeleteItem = (id) => {
     DeleteToDo(id).then((result) => {
+      if (result === true) {
+        TaskListByStatus("Progress");
+      }
+    });
+  };
+
+  const StatusChangeItem = (id, status) => {
+    UpdateToDoStatus(id, status).then((result) => {
       if (result === true) {
         TaskListByStatus("Progress");
       }
@@ -52,11 +61,7 @@ const Progress = () => {
                   <p className="m-0 animated fadeInUp p-0">
                     <AiOutlineCalendar /> {item.createdDate}
                     <a
-                      // onClick={StatusChangeItem.bind(
-                      //   this,
-                      //   item._id,
-                      //   item.status
-                      // )}
+                      onClick={() => StatusChangeItem(item._id, item.status)}
                       className="icon-nav text-primary mx-1"
                     >
                       <AiOutlineEdit />
