@@ -11,9 +11,9 @@ import { RiDashboardLine } from "react-icons/all";
 import { BsHourglass, BsListNested } from "react-icons/bs";
 import { MdOutlineCancelPresentation } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import user from "../../assets/img/ismile.png";
+// import user from "../../assets/img/ismile.png";
 import logo from "../../assets/img/logo.svg";
-import { removeSession } from "../../helper/SessionHelper";
+import { getUserDetails, removeSession } from "../../helper/SessionHelper";
 
 const MasterLayout = (props) => {
   let contentRef,
@@ -53,11 +53,19 @@ const MasterLayout = (props) => {
 
           <div className="float-right h-auto d-flex">
             <div className="user-dropdown">
-              <img src={user} alt="user" className="icon-nav-img icon-nav" />
+              <img
+                src={getUserDetails()["photo"]}
+                alt="user"
+                className="icon-nav-img icon-nav"
+              />
               <div className="user-dropdown-content">
                 <div className="mt-4 text-center">
-                  <img src={user} alt="user" className="icon-nav-img" />
-                  <h6>user name</h6>
+                  <img
+                    src={getUserDetails()["photo"]}
+                    alt="user"
+                    className="icon-nav-img"
+                  />
+                  <h6>{getUserDetails()["firstName"]}</h6>
                   <hr className="user-dropdown-divider" />
                 </div>
                 <NavLink to="/profile" className="side-bar-item">
