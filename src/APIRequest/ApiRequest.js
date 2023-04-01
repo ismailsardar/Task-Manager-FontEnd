@@ -13,6 +13,7 @@ import store from "../redux/store/store";
 
 const BaseURL = "https://task-manager-ismile.cyclic.app/api/v1";
 const AxiosHeader = { headers: { token: getToken() } };
+const axiosConfig = { headers: { token: getToken() } };
 
 //Register
 export function RegistrationRequest(
@@ -167,12 +168,17 @@ export function SummaryRequest() {
 
 // Delete Request
 export function DeleteRequest(id) {
+  // console.log('AxiosHeader:', axiosConfig);
+  // debugger
   store.dispatch(ShowLoader());
   const URL = `${BaseURL}/deleteTask/${id}`;
+  // debugger
   return axios
-    .post(URL, AxiosHeader)
+    .post(URL, null, axiosConfig)
     .then((res) => {
+      // debugger
       store.dispatch(HideLoader());
+
       if (res.status === 200) {
         SuccessToast("Delete Success!");
         return true;
@@ -182,7 +188,8 @@ export function DeleteRequest(id) {
       }
     })
     .catch((error) => {
-      // console.log(error.massage)
+      // debugger
+      console.log(error.message);
       ErrorToast("Something Went Wrong=");
       store.dispatch(HideLoader());
       return false;
