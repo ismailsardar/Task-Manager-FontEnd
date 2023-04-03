@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ErrorToast, SuccessToast } from "../helper/FormHelper";
 import { getToken, setToken, setUserDetails } from "../helper/SessionHelper";
+import { SetProfileDetails } from "../redux/slice/profileSlice";
 import { HideLoader, ShowLoader } from "../redux/slice/settingsSlice";
 import { SetSummary } from "../redux/slice/summarySlice";
 import {
@@ -233,7 +234,7 @@ export function ProfileDetails() {
     .then((res) => {
       store.dispatch(HideLoader());
       if (res.status === 200) {
-        store.dispatch(SetSummary(res.data["data"]));
+        store.dispatch(SetProfileDetails(res.data["data"]));
       } else {
         ErrorToast("Something Went Wrong");
       }
