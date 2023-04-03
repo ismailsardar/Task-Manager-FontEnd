@@ -1,9 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { ProfileDetails } from "../../APIRequest/ApiRequest";
-import { getBase64 } from "../../helper/FormHelper";
+import {
+  ProfileDetails,
+  ProfileUpdateRequest,
+} from "../../APIRequest/ApiRequest";
+import { IsEmail, IsEmpty, IsMobile, getBase64 } from "../../helper/FormHelper";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  let navigate = useNavigate();
+
   useEffect(() => {
     ProfileDetails();
   }, []);
@@ -23,6 +29,41 @@ const Profile = () => {
     getBase64(ImgFile).then((base64) => {
       userImgView.src = base64;
     });
+  };
+
+  const UpdateMyProfile = () => {
+    let email = emailRef.value;
+    let fastName = firstNameRef.value;
+    let lastName = lastNameRef.value;
+    let mobile = mobileRef.value;
+    let password = passwordRef.value;
+    let photo = userImgView.src;
+
+    if (IsEmail(email)) {
+      ErrorToast("Valid Email Address Required !");
+    } else if (IsEmpty(fastName)) {
+      ErrorToast("First Name Required !");
+    } else if (IsEmpty(lastName)) {
+      ErrorToast("Last Name Required !");
+    } else if (!IsMobile(mobile)) {
+      ErrorToast("Valid Mobile  Required !");
+    } else if (IsEmpty(password)) {
+      ErrorToast("Password Required !");
+    } else {
+      ProfileUpdateRequest(
+        email,
+        fastName,
+        lastName,
+        mobile,
+        password,
+        photo
+      ).then((result) => {
+        if (result === true) {
+          navigate("/");
+          // window.location.href='/'
+        }
+      });
+    }
   };
 
   return (
@@ -54,6 +95,7 @@ const Profile = () => {
                     <div className="col-md-4 p-2">
                       <label>Email Address</label>
                       <input
+                        key={Date.now()}
                         ref={(input) => (emailRef = input)}
                         defaultValue={profileData["email"]}
                         type="email"
@@ -64,6 +106,7 @@ const Profile = () => {
                     <div className="col-md-4 p-2">
                       <label>First Name</label>
                       <input
+                        key={Date.now()}
                         ref={(input) => (firstNameRef = input)}
                         defaultValue={profileData["firstName"]}
                         type="text"
@@ -74,6 +117,7 @@ const Profile = () => {
                     <div className="col-md-4 p-2">
                       <label>Last Name</label>
                       <input
+                        key={Date.now()}
                         ref={(input) => (lastNameRef = input)}
                         defaultValue={profileData["lastName"]}
                         type="text"
@@ -84,6 +128,7 @@ const Profile = () => {
                     <div className="col-md-4 p-2">
                       <label>Mobile Number</label>
                       <input
+                        key={Date.now()}
                         ref={(input) => (mobileRef = input)}
                         defaultValue={profileData["mobile"]}
                         type="mobile"
@@ -94,6 +139,7 @@ const Profile = () => {
                     <div className="col-md-4 p-2">
                       <label>Password</label>
                       <input
+                        key={Date.now()}
                         ref={(input) => (passwordRef = input)}
                         defaultValue={profileData["password"]}
                         type="password"
@@ -104,7 +150,7 @@ const Profile = () => {
                   </div>
                   <div className="col-4 p-2">
                     <button
-                      // onClick={UpdateMyProfile}
+                      onClick={UpdateMyProfile}
                       className="btn w-100 float-end btn-primary animated fadeInUp"
                     >
                       Update

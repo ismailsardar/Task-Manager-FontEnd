@@ -246,3 +246,50 @@ export function ProfileDetails() {
       return false;
     });
 }
+
+// Profile update
+export function ProfileUpdateRequest(
+  email,
+  firstName,
+  lastName,
+  mobile,
+  password,
+  photo
+) {
+  store.dispatch(ShowLoader());
+  const URL = `${BaseURL}/profileUpdate`;
+  let reqBody = {
+    email,
+    firstName,
+    lastName,
+    mobile,
+    password,
+    photo,
+  };
+  let localBody = {
+    email,
+    firstName,
+    lastName,
+    mobile,
+    password,
+    photo,
+  };
+  return axios
+    .post(URL, reqBody,axiosConfig)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+       SuccessToast('Profile update success');
+       setUserDetails(localBody);
+       return true;
+      } else {
+        ErrorToast("Something Went Wrong");
+        return false;
+      }
+    })
+    .catch((error) => {
+      store.dispatch(HideLoader());
+      ErrorToast("Something Went Wrong");
+      return false;
+    });
+}
