@@ -223,3 +223,25 @@ export function UpdateStatusRequest(id,status) {
       return false;
     });
 }
+
+// Profile Details
+export function ProfileDetails() {
+  store.dispatch(ShowLoader());
+  const URL = `${BaseURL}/profileDetails`;
+  axios
+    .get(URL, axiosConfig)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        store.dispatch(SetSummary(res.data["data"]));
+      } else {
+        ErrorToast("Something Went Wrong");
+      }
+    })
+    .catch((error) => {
+      // console.log(error.massage)
+      ErrorToast("Something Went Wrong=");
+      store.dispatch(HideLoader());
+      return false;
+    });
+}
