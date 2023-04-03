@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { ProfileDetails } from "../../APIRequest/ApiRequest";
+import { getBase64 } from "../../helper/FormHelper";
 
 const Profile = () => {
   useEffect(() => {
@@ -16,6 +17,13 @@ const Profile = () => {
     passwordRef,
     userImgRef,
     userImgView = useRef();
+
+  const PreviewImage = () => {
+    let ImgFile = userImgRef.files[0];
+    getBase64(ImgFile).then((base64) => {
+      userImgView.src = base64;
+    });
+  };
 
   return (
     <>
@@ -36,7 +44,7 @@ const Profile = () => {
                     <div className="col-4 p-2">
                       <label>Profile Picture</label>
                       <input
-                        // onChange={PreviewImage}
+                        onChange={PreviewImage}
                         ref={(input) => (userImgRef = input)}
                         placeholder="User Image"
                         className="form-control animated fadeInUp"
