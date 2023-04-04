@@ -2,6 +2,7 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import FullscreenLoader from "./components/masterLayout/FullscreenLoader";
 import { getToken } from "./helper/SessionHelper";
+import SendOTPPage from "./pages/AccountRecover/SendOTPPage";
 import CanceledPage from "./pages/CanceledPage";
 import CompletedPage from "./pages/CompletedPage";
 import CreatePage from "./pages/CreatePage";
@@ -41,6 +42,9 @@ function App() {
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/registration" element={<RegistrationPage />} />
             <Route path="/login" element={<LoginPage />} />
+
+            <Route path="/sendOtp" element={<SendOTPPage />} />
+
             <Route path="*" element={<Page404 />} />
           </Routes>
         </BrowserRouter>
