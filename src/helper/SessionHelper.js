@@ -14,7 +14,22 @@ class SessionFunction {
   removeSession = () => {
     localStorage.clear();
     window.location.href = "/";
-  };
+  }
+  removeForget = () => {
+    localStorage.clear();
+  }
+  setEmail(email){
+    localStorage.setItem("fEmail", email);
+  }
+  getEmail(){
+    return localStorage.getItem("fEmail");
+  }
+  setOtp(otp){
+    localStorage.setItem("otp", otp);
+  }
+  getOtp(){
+    return localStorage.getItem("otp");
+  }
 }
 
 export const {
@@ -23,4 +38,9 @@ export const {
   setUserDetails,
   getUserDetails,
   removeSession,
+  removeForget,
+  setEmail,
+  getEmail,
+  setOtp,
+  getOtp
 } = new SessionFunction();
