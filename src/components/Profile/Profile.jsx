@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   ProfileDetails,
   ProfileUpdateRequest,
 } from "../../APIRequest/ApiRequest";
 import { IsEmail, IsEmpty, IsMobile, getBase64 } from "../../helper/FormHelper";
-import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   let navigate = useNavigate();
