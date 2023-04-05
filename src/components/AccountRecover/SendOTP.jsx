@@ -1,6 +1,39 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { VerifyEmailRequest } from "../../APIRequest/ApiRequest";
+import { ErrorToast, IsEmail } from "../../helper/FormHelper";
 
 const SendOTP = () => {
+  let emailRef = useRef();
+  let navigate = useNavigate();
+
+  //   let submitOtpRequest = () => {
+  //     let email = emailRef.value;
+  //     if (IsEmail(email)) {
+  //       ErrorToast("Valid Email Address Required !");
+  //     } else {
+  //       VerifyEmailRequest(email).then((result) => {
+  //         if (result === true) {
+  //           navigate("/verifyOtp");
+  //         }
+  //       })
+  //     }
+  //   };
+
+  const submitOtpRequest = async () => {
+    const emailInput = emailRef.value;
+    if (IsEmail(emailInput)) {
+      ErrorToast("Valid Email Address Required !");
+      return;
+    }
+
+    const isVerified = await VerifyEmailRequest(emailInput);
+    console.log(isVerified);
+    if (isVerified) {
+      navigate("/verifyOtp");
+    }
+  };
+
   return (
     <>
       <div className="container">
@@ -12,12 +45,16 @@ const SendOTP = () => {
                 <br />
                 <label>Your email address</label>
                 <input
+                  ref={(input) => (emailRef = input)}
                   type="email"
                   className="form-control animated fadeInUp"
                   placeholder="enter your email..."
                 />
                 <br />
-                <button className="btn btn-primary float-end w-100 animated fadeInUp">
+                <button
+                  onClick={submitOtpRequest}
+                  className="btn btn-primary h6 float-end w-100 animated fadeInUp"
+                >
                   Next
                 </button>
               </div>
