@@ -1,6 +1,13 @@
 import axios from "axios";
 import { ErrorToast, SuccessToast } from "../helper/FormHelper";
-import { getToken, setToken, setUserDetails } from "../helper/SessionHelper";
+import {
+  getToken,
+  removeForget,
+  setEmail,
+  setOtp,
+  setToken,
+  setUserDetails
+} from "../helper/SessionHelper";
 import { SetProfileDetails } from "../redux/slice/profileSlice";
 import { HideLoader, ShowLoader } from "../redux/slice/settingsSlice";
 import { SetSummary } from "../redux/slice/summarySlice";
@@ -11,6 +18,7 @@ import {
   SetNewTask,
 } from "../redux/slice/taskSlice";
 import store from "../redux/store/store";
+import { UnAuthorizeRequest } from "./UnAuthorizeRequest";
 
 const BaseURL = "https://task-manager-ismile.cyclic.app/api/v1";
 const AxiosHeader = { headers: { token: getToken() } };
@@ -60,6 +68,7 @@ export function RegistrationRequest(
     .catch((error) => {
       store.dispatch(HideLoader());
       ErrorToast("Something Went Wrong");
+      UnAuthorizeRequest(error);
       return false;
     });
 }
@@ -80,6 +89,7 @@ export function LoginRequest(email, password) {
         return true;
       } else {
         ErrorToast("Invalid Email or Password");
+        UnAuthorizeRequest(error);
         return false;
       }
     })
@@ -111,6 +121,7 @@ export function NewTaskRequest(title, description) {
       console.log(error);
       ErrorToast("Something Went Wrong=");
       store.dispatch(HideLoader());
+      UnAuthorizeRequest(error);
       return false;
     });
 }
@@ -141,6 +152,7 @@ export function TaskListByStatus(status) {
       // console.log(error.massage)
       ErrorToast("Something Went Wrong=");
       store.dispatch(HideLoader());
+      UnAuthorizeRequest(error);
       return false;
     });
 }
@@ -163,6 +175,7 @@ export function SummaryRequest() {
       // console.log(error.massage)
       ErrorToast("Something Went Wrong=");
       store.dispatch(HideLoader());
+      UnAuthorizeRequest(error);
       return false;
     });
 }
@@ -193,12 +206,13 @@ export function DeleteRequest(id) {
       console.log(error.message);
       ErrorToast("Something Went Wrong=");
       store.dispatch(HideLoader());
+      UnAuthorizeRequest(error);
       return false;
     });
 }
 
 //Update Status Request
-export function UpdateStatusRequest(id,status) {
+export function UpdateStatusRequest(id, status) {
   store.dispatch(ShowLoader());
   const URL = `${BaseURL}/updateStatus/${id}/${status}`;
   // debugger
@@ -221,6 +235,7 @@ export function UpdateStatusRequest(id,status) {
       console.log(error.message);
       ErrorToast("Something Went Wrong");
       store.dispatch(HideLoader());
+      UnAuthorizeRequest(error);
       return false;
     });
 }
@@ -243,6 +258,7 @@ export function ProfileDetails() {
       // console.log(error.massage)
       ErrorToast("Something Went Wrong=");
       store.dispatch(HideLoader());
+      UnAuthorizeRequest(error);
       return false;
     });
 }
@@ -275,13 +291,13 @@ export function ProfileUpdateRequest(
     photo,
   };
   return axios
-    .post(URL, reqBody,axiosConfig)
+    .post(URL, reqBody, axiosConfig)
     .then((res) => {
       store.dispatch(HideLoader());
       if (res.status === 200) {
-       SuccessToast('Profile update success');
-       setUserDetails(localBody);
-       return true;
+        SuccessToast("Profile update success");
+        setUserDetails(localBody);
+        return true;
       } else {
         ErrorToast("Something Went Wrong");
         return false;
@@ -290,6 +306,108 @@ export function ProfileUpdateRequest(
     .catch((error) => {
       store.dispatch(HideLoader());
       ErrorToast("Something Went Wrong");
+      UnAuthorizeRequest(error);
+      return false;
+    });
+}
+
+// Forgat Password
+export function VerifyEmailRequest(email) {
+  store.dispatch(ShowLoader());
+  const URL = `${BaseURL}/verifyEmail/${email}`;
+  return axios
+    .get(URL)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      // debugger
+      if (res.status === 200) {
+        if (res.data["status"] === "fail") {
+          ErrorToast("No user found");
+          return false;
+        } else {
+          setEmail(email);
+          SuccessToast(
+            "A 6 Digit verification code has been sent to your email address."
+          );
+          return true;
+        }
+      } else {
+        ErrorToast("Request Failed");
+      }
+    })
+    .catch((error) => {
+      // debugger
+      console.log(error.message);
+      ErrorToast("Something Went Wrong=");
+      store.dispatch(HideLoader());
+      UnAuthorizeRequest(error);
+      return false;
+    });
+}
+
+// VerifyOTPRequest
+export function VerifyOTPRequest(email, otp) {
+  store.dispatch(ShowLoader());
+  const URL = `${BaseURL}/verifyOtp/${email}/${otp}`;
+  return axios
+    .get(URL)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      // debugger
+      if (res.status === 200) {
+        if (res.data["status"] === "fail") {
+          ErrorToast(res.data["data"]);
+          return false;
+        } else {
+          setOtp(otp);
+          SuccessToast("Code Verification Success");
+          return true;
+        }
+      } else {
+        ErrorToast("OTP time out");
+        return false;
+      }
+    })
+    .catch((error) => {
+      // debugger
+      console.log(error.message);
+      ErrorToast("Something Went Wrong=");
+      store.dispatch(HideLoader());
+      UnAuthorizeRequest(error);
+      return false;
+    });
+}
+
+// Reset Password Request
+export function ResetPassRequest(email, otp,password) {
+  store.dispatch(ShowLoader());
+  const URL = `${BaseURL}/resetPassword`;
+  let postBody = {email, otp, password }
+  return axios
+    .post(URL,postBody)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      // debugger
+      if (res.status === 200) {
+        if (res.data["status"] === "fail") {
+          ErrorToast(res.data["data"]);
+          return false;
+        } else {
+          removeForget();
+          SuccessToast("New password Created");
+          return true;
+        }
+      } else {
+        ErrorToast("OTP time out");
+        return false;
+      }
+    })
+    .catch((error) => {
+      // debugger
+      console.log(error.message);
+      ErrorToast("Something Went Wrong=");
+      store.dispatch(HideLoader());
+      UnAuthorizeRequest(error);
       return false;
     });
 }
