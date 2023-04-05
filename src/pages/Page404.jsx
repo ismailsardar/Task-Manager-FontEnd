@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from "react";
+import LazyLoader from "../components/masterLayout/LazyLoader";
 const NotFound = lazy(() => import("../components/NotFound/NotFound"));
 
 const Page404 = () => {
