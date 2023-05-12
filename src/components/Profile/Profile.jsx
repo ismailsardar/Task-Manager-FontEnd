@@ -100,6 +100,7 @@ const Profile = () => {
                         defaultValue={profileData["email"]}
                         type="email"
                         placeholder="Email"
+                        readOnly
                         className="form-control animated fadeInUp"
                       />
                     </div>
@@ -143,6 +144,7 @@ const Profile = () => {
                         ref={(input) => (passwordRef = input)}
                         defaultValue={profileData["password"]}
                         type="password"
+                        readOnly
                         placeholder="Password"
                         className="form-control animated fadeInUp"
                       />
